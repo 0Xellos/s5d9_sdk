@@ -14,7 +14,7 @@ class ConanPackage(ConanFile):
     name = "s7g2_sdk"
     version = get_version()
     license = "Innovatrics"
-    url = "ssh://git@git.ba.innovatrics.net:7999/algo/s7g2_sdk.git"
+    url = "ssh://git@gitlab.ba.innovatrics.net:7999/algo/s7g2_sdk.git"
     description = "SDK for Renesas S7G2"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_paths"
