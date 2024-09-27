@@ -3,9 +3,9 @@
 #define BSP_MCU_FAMILY_CFG_H_
 #include "bsp_mcu_device_pn_cfg.h"
 #include "bsp_mcu_device_cfg.h"
-#include "../../../synergy/ssp/src/bsp/mcu/s7g2/bsp_mcu_info.h"
+#include "../../../synergy/ssp/src/bsp/mcu/s5d9/bsp_mcu_info.h"
 #include "bsp_clock_cfg.h"
-#define BSP_MCU_GROUP_S7G2 (1)
+#define BSP_MCU_GROUP_S5D9 (1)
 #define BSP_LOCO_HZ                 (32768)
 #define BSP_MOCO_HZ                 (8000000)
 #define BSP_SUB_CLOCK_HZ            (32768)
@@ -30,4 +30,24 @@
 #define OFS_SEQ5 (1 << 28) | (1 << 30)           
 #define BSP_CFG_ROM_REG_OFS0 (OFS_SEQ1 | OFS_SEQ2 | OFS_SEQ3 | OFS_SEQ4 | OFS_SEQ5)           
 #define BSP_CFG_ROM_REG_OFS1 (0xFFFFFEF8 | (1 << 2) | (3) |  (1 << 8))
+
+#define BSP_CFG_ROM_REG_MPU_PC0_ENABLE 1
+#define BSP_CFG_ROM_REG_MPU_PC0_START 0xFFFFFFFC
+#define BSP_CFG_ROM_REG_MPU_PC0_END 0xFFFFFFFF
+#define BSP_CFG_ROM_REG_MPU_PC1_ENABLE 1
+#define BSP_CFG_ROM_REG_MPU_PC1_START 0xFFFFFFFC
+#define BSP_CFG_ROM_REG_MPU_PC1_END 0xFFFFFFFF
+// #define BSP_CFG_ROM_REG_MPU_REGION0_ENABLE (${config.bsp.s5d9.ssp.mpu_reg0_enable})
+// #define BSP_CFG_ROM_REG_MPU_REGION0_START (${config.bsp.s5d9.ssp.mpu_reg0_start})
+// #define BSP_CFG_ROM_REG_MPU_REGION0_END (${config.bsp.s5d9.ssp.mpu_reg0_end})
+// #define BSP_CFG_ROM_REG_MPU_REGION1_ENABLE (${config.bsp.s5d9.ssp.mpu_reg1_enable})
+// #define BSP_CFG_ROM_REG_MPU_REGION1_START (${config.bsp.s5d9.ssp.mpu_reg1_start})
+// #define BSP_CFG_ROM_REG_MPU_REGION1_END (${config.bsp.s5d9.ssp.mpu_reg1_end})
+// #define BSP_CFG_ROM_REG_MPU_REGION2_ENABLE (${config.bsp.s5d9.ssp.mpu_reg2_enable})
+// #define BSP_CFG_ROM_REG_MPU_REGION2_START (${config.bsp.s5d9.ssp.mpu_reg2_start})
+// #define BSP_CFG_ROM_REG_MPU_REGION2_END (${config.bsp.s5d9.ssp.mpu_reg2_end})
+// #define BSP_CFG_ROM_REG_MPU_REGION3_ENABLE (${config.bsp.s5d9.ssp.mpu_reg3_enable})
+// #define BSP_CFG_ROM_REG_MPU_REGION3_START (${config.bsp.s5d9.ssp.mpu_reg3_start})
+// #define BSP_CFG_ROM_REG_MPU_REGION3_END (${config.bsp.s5d9.ssp.mpu_reg3_end})
+
 #endif /* BSP_MCU_FAMILY_CFG_H_ */

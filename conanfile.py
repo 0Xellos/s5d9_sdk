@@ -10,12 +10,12 @@ def get_version():
         return None
 
 class ConanPackage(ConanFile):
-    """SDK for Renesas S7G2"""
-    name = "s7g2_sdk"
+    """SDK for Renesas S5D9"""
+    name = "s5d9_sdk"
     version = get_version()
     license = "Innovatrics"
-    url = "ssh://git@gitlab.ba.innovatrics.net:7999/algo/s7g2_sdk.git"
-    description = "SDK for Renesas S7G2"
+    url = "ssh://git@gitlab.ba.innovatrics.net:7999/algo/s5d9_sdk.git"
+    description = "SDK for Renesas S5D9"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_paths"
     short_paths = True
@@ -43,4 +43,4 @@ class ConanPackage(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.builddirs = [ "lib/cmake/s7g2_sdk" ]
+        self.cpp_info.builddirs = [ "lib/cmake/s5d9_sdk" ]

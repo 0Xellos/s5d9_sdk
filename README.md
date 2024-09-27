@@ -1,1 +1,1 @@
-# SDK for Renesas S7G2
+# SDK for Renesas S5D9

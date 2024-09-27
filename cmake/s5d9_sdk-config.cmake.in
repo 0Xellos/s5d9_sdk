@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+# Load exported targets
+include(${CMAKE_CURRENT_LIST_DIR}/s5d9_sdk-targets.cmake)
+check_required_components("s5d9_sdk")
