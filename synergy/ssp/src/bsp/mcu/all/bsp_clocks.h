@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -25,7 +25,7 @@
 #ifndef BSP_CLOCKS_H_
 #define BSP_CLOCKS_H_
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 /***********************************************************************************************************************
 Macro definitions
@@ -62,7 +62,7 @@ uint32_t  bsp_cpu_clock_get(void);         // Used internally by BSP
 /* Used internally by CGC */
 ssp_err_t bsp_clock_set_callback(bsp_clock_set_callback_args_t * p_args);
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* BSP_CLOCKS_H_ */

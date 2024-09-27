@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -25,7 +25,7 @@
 #ifndef BSP_MCU_API_H_
 #define BSP_MCU_API_H_
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 void        R_BSP_RegisterProtectEnable(bsp_reg_protect_t regs_to_protect);
@@ -40,12 +40,14 @@ void        R_BSP_IrqStatusClear(IRQn_Type irq);
 ssp_err_t   R_BSP_LedsGet(bsp_leds_t * p_leds);
 void        R_BSP_SoftwareDelay(uint32_t delay, bsp_delay_units_t units);
 ssp_err_t   R_BSP_ModuleStop(ssp_feature_t const * const feature);
+ssp_err_t   R_BSP_ModuleStopAlways(ssp_feature_t const * const p_feature);
 ssp_err_t   R_BSP_ModuleStart(ssp_feature_t const * const feature);
+ssp_err_t   R_BSP_ModuleStateGet(ssp_feature_t const * const p_feature, bool * const p_stop);
 ssp_err_t   R_BSP_VersionGet(ssp_version_t * p_version);
 ssp_err_t   R_BSP_CacheOff(bsp_cache_state_t * p_state);
 ssp_err_t   R_BSP_CacheSet(bsp_cache_state_t state);
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* BSP_MCU_API_H_ */

@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -40,7 +40,7 @@
 #ifndef BSP_GROUP_IRQ_H_
 #define BSP_GROUP_IRQ_H_
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
@@ -82,7 +82,7 @@ Exported global functions (to be accessed by other files)
 void      bsp_group_interrupt_open(void);           // Used internally by BSP
 ssp_err_t bsp_group_irq_call(bsp_grp_irq_t irq);    // Used internally by BSP
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* BSP_GROUP_IRQ_H_ */

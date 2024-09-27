@@ -31,9 +31,9 @@ target_sources(s5d9_sdk PRIVATE
     synergy/ssp/src/bsp/mcu/all/bsp_register_protection.c
     synergy/ssp/src/bsp/cmsis/Device/RENESAS/S5D9/Source/startup_S5D9.c
     synergy/ssp/src/bsp/cmsis/Device/RENESAS/S5D9/Source/system_S5D9.c
-    synergy/board/s5d9_sk/bsp_init.c
-    synergy/board/s5d9_sk/bsp_leds.c
-    synergy/board/s5d9_sk/bsp_qspi.c
+    synergy/board/s5d9_pk/bsp_init.c
+    synergy/board/s5d9_pk/bsp_leds.c
+    synergy/board/s5d9_pk/bsp_qspi.c
     synergy_gen/common_data.c
     synergy_gen/hal_data.c
     synergy_gen/pin_data.c

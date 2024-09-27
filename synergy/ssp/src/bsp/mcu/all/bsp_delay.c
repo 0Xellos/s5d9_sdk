@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -168,8 +168,8 @@ BSP_ATTRIBUTE_STACKLESS static void software_delay_loop (uint32_t loop_cnt)
 #endif
 
                         "   cmp r0, #0          \n"		///< 1 cycle
-/* CM0 has a different instruction set */						
-#ifdef __CORE_CM0PLUS_H_GENERIC			
+/* CM0 and ARMv8MBL (CM23) have a different instruction set */
+#if defined(__CORE_CM0PLUS_H_GENERIC) || defined(__CORE_ARMV8MBL_H_GENERIC)
                         "   bne sw_delay_loop   \n"		///< 2 cycles
 #else
                         "   bne.n sw_delay_loop \n"		///< 2 cycles

@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -47,7 +47,7 @@ Includes   <System Includes> , "Project Includes"
 #include "bsp_compiler_support.h"
 #include "bsp_cfg.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
@@ -57,19 +57,19 @@ Macro definitions
 #define BSP_IRQ_DISABLED            (0xFFU)
 
 /* Version of this module's code and API. */
-#define BSP_CODE_VERSION_MAJOR      (1U)
-#define BSP_CODE_VERSION_MINOR      (10U)
-#define BSP_API_VERSION_MAJOR       (1U)
+#define BSP_CODE_VERSION_MAJOR      (2U)
+#define BSP_CODE_VERSION_MINOR      (0U)
+#define BSP_API_VERSION_MAJOR       (2U)
 #define BSP_API_VERSION_MINOR       (0U)
 
-#if (0 == BSP_CFG_RTOS || (defined(__GNUC__) && !defined(__ARM_EABI__)) || (defined(__ICCARM__) && !defined(__ARM_EABI__)))
-#define SF_CONTEXT_SAVE
-#define SF_CONTEXT_RESTORE
-#elif 1 == BSP_CFG_RTOS
-#define SF_CONTEXT_SAVE    tx_isr_start(1);
-#define SF_CONTEXT_RESTORE tx_isr_end(1);
+#if 1 == BSP_CFG_RTOS
+#define SF_CONTEXT_SAVE    tx_isr_start(__get_IPSR());
+#define SF_CONTEXT_RESTORE tx_isr_end(__get_IPSR());
 void  tx_isr_start(unsigned long isr_id);
 void  tx_isr_end(unsigned long isr_id);
+#else
+#define SF_CONTEXT_SAVE
+#define SF_CONTEXT_RESTORE
 #endif
 
 /** Function call to insert before returning assertion error. */
@@ -159,7 +159,7 @@ void  tx_isr_end(unsigned long isr_id);
         __set_PRIMASK(1U)
 #else
 #define SSP_CRITICAL_SECTION_ENTER  old_mask_level = (uint32_t) __get_BASEPRI(); \
-        __set_BASEPRI(BSP_CFG_IRQ_MASK_LEVEL_FOR_CRITICAL_SECTION)
+        __set_BASEPRI((uint8_t) (BSP_CFG_IRQ_MASK_LEVEL_FOR_CRITICAL_SECTION << (8U - __NVIC_PRIO_BITS)))
 #endif
 #endif
 
@@ -208,7 +208,7 @@ void ssp_error_log(ssp_err_t err, const char * module, int32_t line);
 #endif
 
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* BSP_COMMON_H_ */

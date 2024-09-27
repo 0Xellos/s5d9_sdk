@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -57,6 +57,7 @@ typedef struct st_bsp_feature_rspi
 {
     uint8_t     clock;   ///< Which clock the RSPI is connected to
     uint8_t     has_ssl_level_keep        : 1;
+    uint8_t     swap                      : 1;
 } bsp_feature_rspi_t;
 
 /** LVD MCU specific features. */
@@ -88,7 +89,8 @@ typedef struct st_bsp_feature_adc
     uint32_t    sensor_min_sampling_time;      ///< The minimum sampling time required by the on-chip temperature and voltage sensor in nsec
     uint32_t    clock_source;                  ///< The conversion clock used by the ADC peripheral
     uint8_t     addition_supported        : 1; ///< Whether addition is supported or not in this MCU
-    uint8_t     calibration_reg_available    : 1; ///< Whether CALEXE register is available
+    uint8_t     calibration_reg_available : 1; ///< Whether CALEXE register is available
+    uint8_t     reference_voltage         : 1 ;///< Whether external or internal ref voltage
 } bsp_feature_adc_t;
 
 /** CAN MCU specific features. */
@@ -104,6 +106,7 @@ typedef struct st_bsp_feature_can
 typedef struct st_bsp_feature_dac
 {
     uint8_t     has_davrefcr            : 1;   ///< Whether or not DAC has DAVREFCR register
+    uint8_t     has_chargepump          : 1;   ///< Whether or not DAC has DAPC register
 } bsp_feature_dac_t;
 
 
@@ -173,6 +176,7 @@ typedef struct st_bsp_feature_cgc
     uint32_t    has_fclk                : 1;   ///< Whether or not MCU has FCLK clock
     uint32_t    has_bclk                : 1;   ///< Whether or not MCU has BCLK clock
     uint32_t    has_sdadc_clock         : 1;   ///< Whether or not MCU has SDADC clock
+    uint32_t    set_bck_with_pckb       : 1;   ///< Whether or not BCK bits should be set with PCKB bits
 } bsp_feature_cgc_t;
 
 /** OPAMP MCU specific features. */
@@ -186,7 +190,8 @@ typedef struct st_bsp_feature_opamp
 /** SDHI MCU specific features. */
 typedef struct st_bsp_feature_sdhi
 {
-    uint8_t     has_card_detection      : 1;   ///< Whether or not MCU has card detection
+    uint32_t    has_card_detection      : 1;   ///< Whether or not MCU has card detection
+    uint32_t    supports_8_bit_mmc      : 1;   ///< Whether or not MCU supports 8-bit MMC
     uint32_t    max_clock_frequency;           ///< Maximum clock rate supported by the peripheral
 } bsp_feature_sdhi_t;
 
@@ -195,6 +200,25 @@ typedef struct st_bsp_feature_ssi
 {
     uint8_t     fifo_num_stages;               ///< Number of FIFO stages on this MCU
 } bsp_feature_ssi_t;
+
+/** DMAC MCU specific features. */
+typedef struct st_bsp_feature_icu
+{
+    uint8_t     has_ir_flag            : 1;   ///< Whether or not MCU has IR flag in DELSRn register
+} bsp_feature_icu_t;
+
+/** LPMV2 MCU specific features. */
+typedef struct st_bsp_feature_lpmv2
+{
+    uint8_t     has_dssby              : 1;   ///< Whether or not MCU has Deep software standby mode
+}bsp_feature_lpmv2_t;
+
+/** RIIC MCU specific features. */
+typedef struct st_bsp_feature_riic
+{
+    uint32_t    riic_std_fast_rise_time;      ///< Input rise time for the riic peripheral for standard and fast mode
+    uint32_t    riic_fastplus_rise_time;      ///< Input rise time for the riic peripheral for the fast plus mode
+} bsp_feature_riic_t;
 
 /***********************************************************************************************************************
 Exported global variables (to be accessed by other files)
@@ -282,6 +306,24 @@ void R_BSP_FeatureSdhiGet(bsp_feature_sdhi_t * p_sdhi_feature);
  * @param[out] p_ssi_feature  Pointer to structure to store SSI features.
  **********************************************************************************************************************/
 void R_BSP_FeatureSsiGet(bsp_feature_ssi_t * p_ssi_feature);
+
+/*******************************************************************************************************************//**
+ * Get MCU specific DMAC features
+ * @param[out] p_icu_feature  Pointer to structure to store DMAC features.
+ **********************************************************************************************************************/
+void R_BSP_FeatureICUGet(bsp_feature_icu_t * p_icu_feature);
+
+/*******************************************************************************************************************//**
+ * Get MCU specific LPMV2 features
+ * @param[out] p_lpmv2_feature  Pointer to structure to store LPMV2 features.
+ **********************************************************************************************************************/
+void R_BSP_FeatureLPMV2Get(bsp_feature_lpmv2_t * p_lpmv2_feature);
+
+/*******************************************************************************************************************//**
+ * Get MCU specific RIIC features
+ * @param[out] p_riic_feature  Pointer to structure to store RIIC features.
+ **********************************************************************************************************************/
+void R_BSP_FeatureRIICGet(bsp_feature_riic_t * p_riic_feature);
 
 #endif // BSP_FEATURE_H_
 
