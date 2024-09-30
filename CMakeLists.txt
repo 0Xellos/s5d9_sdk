@@ -13,6 +13,7 @@ target_sources(s5d9_sdk PRIVATE
     synergy/ssp/src/driver/r_ioport/r_ioport.c
     synergy/ssp/src/driver/r_elc/r_elc.c
     synergy/ssp/src/driver/r_cgc/r_cgc.c
+    synergy/ssp/src/driver/r_fmi/libs/libfmi_cm4_s5d9_gcc.a
     synergy/ssp/src/bsp/mcu/s5d9/bsp_cache.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_clocks.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_feature.c
