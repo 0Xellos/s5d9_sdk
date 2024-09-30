@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -30,6 +30,7 @@
  **********************************************************************************************************************/
 #include "bsp_clock_cfg.h"
 
+
 /**********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
@@ -41,7 +42,34 @@
 /** Divisor to use to obtain time for 1 tick in us from iclk */
 #define RELOAD_COUNT_FOR_1US    (1000000U)
 
+
 /**********************************************************************************************************************
  * Typedef definitions
+ **********************************************************************************************************************/
+/** Operating power control modes. */
+typedef enum
+{
+    CGC_HIGH_SPEED_MODE     = 0U,   // Should match OPCCR OPCM high speed
+    CGC_MIDDLE_SPEED_MODE   = 1U,   // Should match OPCCR OPCM middle speed
+    CGC_LOW_VOLTAGE_MODE    = 2U,   // Should match OPCCR OPCM low voltage
+    CGC_LOW_SPEED_MODE      = 3U,   // Should match OPCCR OPCM low speed
+    CGC_SUBOSC_SPEED_MODE   = 4U,   // Can be any value not otherwise used
+}cgc_operating_modes_t;
+
+/*******************************************************************************************************************//**
+@addtogroup CGC
+@{
+**********************************************************************************************************************/
+
+/**********************************************************************************************************************
+* Private Global Functions
+ **********************************************************************************************************************/
+bool r_cgc_clock_run_state_get (R_SYSTEM_Type * p_system_reg, cgc_clock_t clock);
+cgc_operating_modes_t r_cgc_operating_mode_get (R_SYSTEM_Type * p_system_reg);
+void r_cgc_operating_hw_modeset (R_SYSTEM_Type * p_system_reg, cgc_operating_modes_t operating_mode);
+void r_cgc_hoco_wait_control_set (R_SYSTEM_Type * p_system_reg, uint8_t hoco_wait);
+
+/*******************************************************************************************************************//**
+ * @} (end addtogroup CGC)
  **********************************************************************************************************************/
 #endif /* R_CGC_PRIVATE_H */

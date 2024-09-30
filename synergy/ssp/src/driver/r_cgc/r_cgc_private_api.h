@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -20,7 +20,7 @@
 #ifndef R_CGC_R_CGC_PRIVATE_API_H_
 #define R_CGC_R_CGC_PRIVATE_API_H_
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
@@ -54,7 +54,7 @@ ssp_err_t R_CGC_USBClockCfg (cgc_usb_clock_div_t divider);
 ssp_err_t R_CGC_SystickUpdate(uint32_t period_count, cgc_systick_period_units_t units);
 ssp_err_t R_CGC_VersionGet (ssp_version_t * version);
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* R_CGC_R_CGC_PRIVATE_API_H_ */
