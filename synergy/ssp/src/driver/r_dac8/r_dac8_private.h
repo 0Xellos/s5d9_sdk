@@ -1,0 +1,61 @@
+/***********************************************************************************************************************
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * 
+ * This file is part of Renesas SynergyTM Software Package (SSP)
+ *
+ * The contents of this file (the "contents") are proprietary and confidential to Renesas Electronics Corporation
+ * and/or its licensors ("Renesas") and subject to statutory and contractual protections.
+ *
+ * This file is subject to a Renesas SSP license agreement. Unless otherwise agreed in an SSP license agreement with
+ * Renesas: 1) you may not use, copy, modify, distribute, display, or perform the contents; 2) you may not use any name
+ * or mark of Renesas for advertising or publicity purposes or in connection with your use of the contents; 3) RENESAS
+ * MAKES NO WARRANTY OR REPRESENTATIONS ABOUT THE SUITABILITY OF THE CONTENTS FOR ANY PURPOSE; THE CONTENTS ARE PROVIDED
+ * "AS IS" WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, AND NON-INFRINGEMENT; AND 4) RENESAS SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, OR
+ * CONSEQUENTIAL DAMAGES, INCLUDING DAMAGES RESULTING FROM LOSS OF USE, DATA, OR PROJECTS, WHETHER IN AN ACTION OF
+ * CONTRACT OR TORT, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE CONTENTS. Third-party contents
+ * included in this file may be subject to different terms.
+ **********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ * File Name    : r_dac8_private.h
+ * Description  : D/A Converter (DAC) Module private header file.
+ **********************************************************************************************************************/
+
+
+/*******************************************************************************************************************//**
+ * @addtogroup DAC8
+ * @{
+ **********************************************************************************************************************/
+
+#ifndef R_DAC8_PRIVATE_H
+#define R_DAC8_PRIVATE_H
+
+#include "hw/hw_dac8_private.h"
+
+/**********************************************************************************************************************
+ * Macro definitions
+ **********************************************************************************************************************/
+#define DAC8_OPEN   (0xDAC8DAC8U)
+
+/**********************************************************************************************************************
+ * Typedef definitions
+ **********************************************************************************************************************/
+typedef struct {
+    union{
+        struct {
+            uint16_t                        : 4; /** Reserved */
+            uint16_t ad_sync_supported      : 1; /** Does the DAC support AD/DA Synchronization */
+            uint16_t channels_count         : 2; /** How many channels are supported */
+            uint16_t charge_pump_present    : 1; /** Is a charge pump present */
+            uint16_t real_time_support      : 1; /** Is real time mode supported */
+        };
+        uint16_t data;
+    };
+} dac8_variant_info_t;
+
+#endif /* R_DAC8_PRIVATE_H */
+
+/*******************************************************************************************************************//**
+ * @} (end addtogroup DAC)
+ **********************************************************************************************************************/

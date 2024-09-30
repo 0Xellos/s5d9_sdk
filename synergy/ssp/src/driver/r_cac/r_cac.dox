@@ -1,0 +1,180 @@
+/***********************************************************************************************************************
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ *
+ * The contents of this file (the "contents") are proprietary and confidential to Renesas Electronics Corporation
+ * and/or its licensors ("Renesas") and subject to statutory and contractual protections.
+ *
+ * Unless otherwise expressly agreed in writing between Renesas and you: 1) you may not use, copy, modify, distribute,
+ * display, or perform the contents; 2) you may not use any name or mark of Renesas for advertising or publicity
+ * purposes or in connection with your use of the contents; 3) RENESAS MAKES NO WARRANTY OR REPRESENTATIONS ABOUT THE
+ * SUITABILITY OF THE CONTENTS FOR ANY PURPOSE; THE CONTENTS ARE PROVIDED "AS IS" WITHOUT ANY EXPRESS OR IMPLIED
+ * WARRANTY, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+ * NON-INFRINGEMENT; AND 4) RENESAS SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, OR CONSEQUENTIAL DAMAGES,
+ * INCLUDING DAMAGES RESULTING FROM LOSS OF USE, DATA, OR PROJECTS, WHETHER IN AN ACTION OF CONTRACT OR TORT, ARISING
+ * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE CONTENTS. Third-party contents included in this file may
+ * be subject to different terms.
+ **********************************************************************************************************************/
+/**********************************************************************************************************************
+* File Name    : r_cac.dox
+* Description  : Extra documentation for CAC module
+***********************************************************************************************************************
+* History : DD.MM.YYYY Version Description
+*           19.02.2015 1.00    Initial Release.
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Functions
+***********************************************************************************************************************/
+
+/*******************************************************************************************************************//**
+ * @fn      ssp_err_t R_CAC_Open (cac_ctrl_t * const p_ctrl, cac_cfg_t  const * const p_cfg);
+ * 
+ *
+ * @code
+    // Example code
+    // Create a variable for the error
+    ssp_err_t   err;
+    
+    // Define a control block structure used in the API calls.
+    cac_ctrl_t ctrl;
+    
+    // Define a configuration structure used in the API calls.
+    cac_cfg_t g_cac_example_cfg;
+    
+    // Init the CGC and start the HOCO and LOCO clocks.
+    err = R_CGC_Init();
+
+    err = R_CGC_ClockStart(CGC_CLOCK_HOCO, &clock_config);
+    err = R_CGC_ClockStart(CGC_CLOCK_LOCO, &clock_config);
+ 	   
+ 
+	// Specify the parameters we are using
+	g_cac_example_cfg.callback = NULL,
+	g_cac_example_cfg.p_context = 0,
+	g_cac_example_cfg.p_extend = NULL,
+	g_cac_example_cfg.continuous_mode = false,        // measurement does not continuously restart after completing.
+	g_cac_example_cfg.mei_interrupt_enabled = false;  // Measurement complete interrupt disabled
+	g_cac_example_cfg.ovf_interrupt_enabled = false;  // Overflow interrupt is disabled
+	g_cac_example_cfg.ferr_interrupt_enabled = false; // Frequency Error interrupt is disabled
+
+	g_cac_example_cfg.cac_ref_clock.digfilter = CAC_REF_DIGF_OFF;  // No digital filter
+	g_cac_example_cfg.cac_ref_clock.edge = CAC_REF_EDGE_RISE;      // Rising edge detect
+	g_cac_example_cfg.cac_meas_clock.clock = CAC_CLOCK_SOURCE_HOCO;  // We want to measure HOCO (24 MHz)
+	g_cac_example_cfg.cac_meas_clock.divider = CAC_MEAS_DIV_1;       // No divisor on the measurement clock
+	g_cac_example_cfg.cac_ref_clock.clock = CAC_CLOCK_SOURCE_LOCO;   // Our reference clock will LOCO (32.768 kHz)
+	g_cac_example_cfg.cac_ref_clock.divider = CAC_REF_DIV_32;        // Minimum divider is 32, so effective freq  = 1024 Hz
+
+	 /** Configure and open the CAC API */
+	 err = R_CAC_Open(&ctrl, &g_cac_example_cfg);
+
+ 
+ * @endcode
+***********************************************************************************************************************/
+
+/*******************************************************************************************************************//**
+ * @fn     ssp_err_t R_CAC_Read (cac_ctrl_t * const p_ctrl, uint8_t * const p_status, uint16_t * const p_counter);
+ * 
+ * @code
+    // Example code
+    
+    // Create a variable for the error and storage for the CAC count and status
+    ssp_err_t   err;
+    uint8_t   cac_status;
+    uint16_t  cac_counter;
+    
+    // Define a control block structure used in the API calls.
+    cac_ctrl_t ctrl;
+
+    err =  R_CAC_Read(&ctrl, &cac_status,  &cac_counter);
+
+ * @endcode
+***********************************************************************************************************************/
+
+
+/*******************************************************************************************************************//**
+ * @fn         ssp_err_t R_CAC_Close (cac_ctrl_t * const p_ctrl);
+
+ * 
+ * @code
+    // Example code
+    // Create a variable for the error
+    ssp_err_t   err;
+    
+    // Define a control block structure used in the API calls.
+    cac_ctrl_t ctrl;
+    
+    err = R_CAC_Close(&ctrl);
+        
+ * @endcode
+***********************************************************************************************************************/
+
+/*******************************************************************************************************************//**
+ * @fn         ssp_err_t R_CAC_StopMeasurement (cac_ctrl_t * const p_ctrl);
+
+ * 
+ * @code
+    // Example code
+    // Create a variable for the error
+    ssp_err_t   err;
+    
+    // Define a control block structure used in the API calls.
+     cac_ctrl_t ctrl;
+    
+    // Stop the measurement process
+    err = R_CAC_StopMeasurement(&ctrl);
+ * @endcode
+***********************************************************************************************************************/
+
+/*******************************************************************************************************************//**
+ * @fn     ssp_err_t R_CAC_StartMeasurement (cac_ctrl_t * const p_ctrl);
+ * 
+ * @code
+    // Example code
+    
+    // Create a variable for the error
+    ssp_err_t   err;
+    
+    // Define a control block structure used in the API calls.
+     cac_ctrl_t ctrl;
+    
+    // Start the measurement process
+    err = R_CAC_StartMeasurement(&ctrl);
+     
+ * @endcode
+***********************************************************************************************************************/
+
+/*******************************************************************************************************************//**
+ * @fn     ssp_err_t R_CAC_Reset (cac_ctrl_t * const p_ctrl);
+ * 
+ * @code
+    // Example code
+    
+    // Create a variable for the error
+    ssp_err_t   err;
+    
+    // Define a control block structure used in the API calls.
+     cac_ctrl_t ctrl;
+    
+    // Start the measurement process
+    err = R_CAC_Reset(&ctrl);
+    
+ * @endcode
+***********************************************************************************************************************/
+
+/*******************************************************************************************************************//**
+ * @fn     ssp_err_t R_CAC_VersionGet (ssp_version_t * const p_version);
+ * 
+ * @code
+    // Example code
+    
+    // Create a variable for the error
+    ssp_err_t   err;
+    
+    // Create a variable for the version information
+    ssp_version_t   version;
+    
+    // Get the current counter value
+    err = R_CAC_VersionGet(&version);
+    
+ * @endcode
+***********************************************************************************************************************/

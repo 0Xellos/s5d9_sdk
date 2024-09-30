@@ -11,9 +11,7 @@ add_library(s5d9_sdk STATIC)
 add_library(s5d9::s5d9_sdk ALIAS s5d9_sdk)
 target_sources(s5d9_sdk PRIVATE
     synergy/ssp/src/driver/r_ioport/r_ioport.c
-    synergy/ssp/src/driver/r_fmi/r_fmi.c
     synergy/ssp/src/driver/r_elc/r_elc.c
-    synergy/ssp/src/driver/r_cgc/hw/hw_cgc.c
     synergy/ssp/src/driver/r_cgc/r_cgc.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_cache.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_clocks.c
@@ -29,6 +27,7 @@ target_sources(s5d9_sdk PRIVATE
     synergy/ssp/src/bsp/mcu/all/bsp_irq.c
     synergy/ssp/src/bsp/mcu/all/bsp_locking.c
     synergy/ssp/src/bsp/mcu/all/bsp_register_protection.c
+    synergy/ssp/src/bsp/mcu/all/bsp_sbrk.c
     synergy/ssp/src/bsp/cmsis/Device/RENESAS/S5D9/Source/startup_S5D9.c
     synergy/ssp/src/bsp/cmsis/Device/RENESAS/S5D9/Source/system_S5D9.c
     synergy/board/s5d9_pk/bsp_init.c

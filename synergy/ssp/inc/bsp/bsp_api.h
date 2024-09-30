@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -71,12 +71,13 @@ Includes   <System Includes> , "Project Includes"
 /* Build time error checking. */
 #include "../../src/bsp/mcu/all/bsp_error_checking.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
 Typedef definitions
 ***********************************************************************************************************************/
+
 /***********************************************************************************************************************
 Exported global variables
 ***********************************************************************************************************************/
@@ -100,7 +101,7 @@ ssp_err_t   R_SSP_VersionGet(ssp_pack_version_t * const p_version);             
 
 /** @} (end defgroup BSP_Interface) */
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* BSP_API_H */
