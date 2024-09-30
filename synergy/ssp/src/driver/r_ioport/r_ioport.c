@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -68,8 +68,10 @@
 /***********************************************************************************************************************
  * Private function prototypes
  **********************************************************************************************************************/
+#if ((1 == IOPORT_CFG_PARAM_CHECKING_ENABLE))
 static ssp_err_t r_ioport_pin_exists(ioport_port_pin_t pin);
 static ssp_err_t r_ioport_port_exists(ioport_port_t port);
+#endif
 
 #if BSP_MCU_VBATT_SUPPORT
 static void bsp_vbatt_init(ioport_cfg_t const * const p_pin_cfg);   // Used internally by BSP
@@ -398,7 +400,23 @@ ssp_err_t R_IOPORT_PinWrite (ioport_port_pin_t pin, ioport_level_t level)
     IOPORT_ERROR_RETURN(SSP_SUCCESS == err, err);
 #endif
 
-    HW_IOPORT_PinWrite(gp_pfs_reg, gp_pmisc_reg, pin, level);
+    ioport_size_t setbits = 0U;
+    ioport_size_t clrbits = 0U;
+    ioport_port_t port = (ioport_port_t) (0xFF00U & (ioport_size_t) pin);
+
+    ioport_size_t shift = 0x00FFU & (ioport_size_t) pin;
+    ioport_size_t pin_mask = (ioport_size_t) (1U << shift);
+
+    if (IOPORT_LEVEL_LOW == level)
+    {
+        clrbits = pin_mask;
+    }
+    else
+    {
+        setbits = pin_mask;
+    }
+
+    HW_IOPORT_PortWriteWithPCNTR3(gp_ioport_reg, port, setbits, clrbits);
 
     return SSP_SUCCESS;
 } /* End of function R_IOPORT_PinWrite */
@@ -631,7 +649,7 @@ ssp_err_t R_IOPORT_PinEventOutputWrite (ioport_port_pin_t pin, ioport_level_t pi
         reset_bits = (ioport_size_t)(1U << ((ioport_size_t) pin & 0x00FFU));
     }
 
-    HW_IOPORT_PortEventOutputDataWrite(gp_ioport_reg, port, set_bits, reset_bits);
+    HW_IOPORT_PinEventOutputDataWrite(gp_ioport_reg, port, set_bits, reset_bits, pin_value);
 
     return SSP_SUCCESS;
 } /* End of function R_IOPORT_PinEventOutputWrite */
@@ -686,6 +704,15 @@ ssp_err_t R_IOPORT_EthernetModeCfg (ioport_ethernet_channel_t channel, ioport_et
  * @} (end addtogroup IOPORT)
  **********************************************************************************************************************/
 
+#if ((1 == IOPORT_CFG_PARAM_CHECKING_ENABLE))
+/******************************************************************************************************************//**
+ * @brief  Checks the existence of the valid pin as per port.
+ *
+ * @param[in]   pin                  Pin number to be used.
+ *
+ * @retval SSP_SUCCESS               Pin number is valid.
+ * @retval SSP_ERR_INVALID_ARGUMENT  An invalid pin number is used.
+ *********************************************************************************************************************/
 static ssp_err_t r_ioport_pin_exists(ioport_port_pin_t pin)
 {
     uint32_t port_local = (uint32_t) pin >> IOPORT_PRV_PORT_OFFSET;
@@ -701,6 +728,14 @@ static ssp_err_t r_ioport_pin_exists(ioport_port_pin_t pin)
     return SSP_ERR_INVALID_ARGUMENT;
 }
 
+/******************************************************************************************************************//**
+* @brief  Checks the existence of the valid port.
+*
+* @param[in]   port                 Port number to be used.
+*
+* @retval SSP_SUCCESS               Port number is valid.
+* @retval SSP_ERR_INVALID_ARGUMENT  An invalid port number is used.
+*********************************************************************************************************************/
 static ssp_err_t r_ioport_port_exists(ioport_port_t port)
 {
     uint32_t port_local = (uint32_t) port >> IOPORT_PRV_PORT_OFFSET;
@@ -710,10 +745,13 @@ static ssp_err_t r_ioport_port_exists(ioport_port_t port)
     }
     return SSP_ERR_INVALID_ARGUMENT;
 }
+#endif
 
 #if BSP_MCU_VBATT_SUPPORT
 /*******************************************************************************************************************//**
  * @brief Initializes VBTICTLR register based on pin configuration.
+ *
+ * @param[in,out]   p_pin_cfg       Pointer to pin configuration data.
  *
  * The VBTICTLR register may need to be modified based on the project's pin configuration. There is a set of pins that
  * needs to be checked. If one of these pins is found in the pin configuration table then it will be tested to see if

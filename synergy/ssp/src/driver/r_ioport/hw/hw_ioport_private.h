@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -33,7 +33,7 @@
 #include "r_ioport.h"
 #include "r_ioport_api.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /**********************************************************************************************************************
@@ -74,10 +74,6 @@ __STATIC_INLINE uint32_t *         ioport_port_address_get (uint32_t volatile * 
 
 __STATIC_INLINE uint32_t *         ioport_pfs_address_get (uint32_t volatile * p_base_address, ioport_port_pin_t pin);
 
-__STATIC_INLINE void             HW_IOPORT_PinWrite (R_PFS_Type * p_pfs_reg, R_PMISC_Type * p_pmisc_reg, ioport_port_pin_t pin, ioport_level_t level);
-
-__STATIC_INLINE void             HW_IOPORT_PortWrite (R_IOPORT1_Type * p_ioport_regs, ioport_port_t port, ioport_size_t value);
-
 __STATIC_INLINE void             HW_IOPORT_PortWriteWithPCNTR3 (R_IOPORT1_Type * p_ioport_regs,
                                                         ioport_port_t port,
                                                         ioport_size_t set_value,
@@ -103,6 +99,11 @@ __STATIC_INLINE void               HW_IOPORT_PortEventOutputDataWrite (R_IOPORT1
                                                                    ioport_port_t port,
                                                                    ioport_size_t set_value,
                                                                    ioport_size_t reset_value);
+
+__STATIC_INLINE void               HW_IOPORT_PinEventOutputDataWrite (R_IOPORT1_Type * p_ioport_regs,
+                                                                   ioport_port_t port,
+                                                                   ioport_size_t set_value,
+                                                                   ioport_size_t reset_value,ioport_level_t pin_level);
 
 __STATIC_INLINE void             HW_IOPORT_EthernetModeCfg (R_PMISC_Type * p_pmisc_reg, ioport_ethernet_channel_t channel, ioport_ethernet_mode_t mode);
 
@@ -205,62 +206,6 @@ __STATIC_INLINE void HW_IOPORT_EthernetModeCfg (R_PMISC_Type * p_pmisc_reg, iopo
 }
 
 /*******************************************************************************************************************//**
- * Writes specified level (high or low) to a pin.
- *
- * @param[in]    p_pfs_reg    Base address of the PFS registers
- * @param[in]    p_pmisc_reg  Base address of the PMISC registers
- * @param[in]    pin          Pin to be written to
- * @param[in]    level        Required level
- *
- **********************************************************************************************************************/
-__STATIC_INLINE void HW_IOPORT_PinWrite (R_PFS_Type * p_pfs_reg, R_PMISC_Type * p_pmisc_reg, ioport_port_pin_t pin, ioport_level_t level)
-{
-    uint32_t pfs;
-
-    pfs = HW_IOPORT_PFSRead(p_pfs_reg, pin);
-
-    if (IOPORT_LEVEL_HIGH == level)
-    {
-        /** Set PODR bit (0) */
-        pfs |= IOPORT_PRV_PORT_OUTPUT_HIGH;
-    }
-    else
-    {
-        /** Clear PODR bit (0) */
-        pfs &= (~((uint32_t) IOPORT_PRV_PORT_OUTPUT_HIGH));
-    }
-
-    /** mask out bits which must be written as zero */
-    pfs &= IOPORT_PRV_CLEAR_BITS_MASK;
-
-    HW_IOPORT_PFSWrite(p_pfs_reg, p_pmisc_reg, pin, pfs);
-}
-
-/*******************************************************************************************************************//**
- * Writes to all pins in a port.
- *
- * @param[in]    p_ioport_regs  Base address of the IOPORT registers
- * @param[in]    port           Port to write to
- * @param[in]    value          Value to be written to the port
- *
- **********************************************************************************************************************/
-__STATIC_INLINE void HW_IOPORT_PortWrite (R_IOPORT1_Type * p_ioport_regs, ioport_port_t port, ioport_size_t value)
-{
-    volatile uint32_t * p_dest;
-    uint32_t          pcntr_reg_value;
-
-    p_dest = ioport_port_address_get((uint32_t volatile *) &p_ioport_regs->PCNTR1, port);
-
-    /** Read current value of PCNTR register value for the specified port */
-    pcntr_reg_value  = *p_dest;
-    /** Only the upper 16-bits should be written too */
-    pcntr_reg_value &= 0x0000FFFFU;
-    pcntr_reg_value |= (uint32_t) ((uint32_t) value << 16);
-
-    *p_dest          = pcntr_reg_value;
-}
-
-/*******************************************************************************************************************//**
  * Writes to the pins in a port using the PCNTR3 register. This register allows individual bits to be set high or
  * cleared low while leaving other pins unchanged. This allows automic setting and clearing of pins.
  *
@@ -342,6 +287,49 @@ __STATIC_INLINE void HW_IOPORT_PortEventOutputDataWrite (R_IOPORT1_Type * p_iopo
 
     /** PCNTR4 register: lower word = set data, upper word = reset_data */
     *p_dest = (uint32_t) (((uint32_t) reset_value << 16) | (uint32_t) set_value);
+}
+
+/*******************************************************************************************************************//**
+ * Writes the set and clear values on a pin of the port when an ELC event occurs. This allows accurate timing of
+ * pin output level.
+ *
+ * @param[in]    p_ioport_regs  Base address of the IOPORT registers
+ * @param[in]    port           Port to read event data
+ * @param[in]    set_value      Bit in the port to set high (1 = that bit will be set high)
+ * @param[in]    reset_value    Bit in the port to clear low (1 = that bit will be cleared low)
+ * @param[in]    pin_level      Event data for pin
+ **********************************************************************************************************************/
+__STATIC_INLINE void HW_IOPORT_PinEventOutputDataWrite (R_IOPORT1_Type * p_ioport_regs,
+                                                        ioport_port_t port,
+                                                        ioport_size_t set_value,
+                                                        ioport_size_t reset_value,ioport_level_t pin_level)
+{
+    volatile uint32_t * p_dest;
+    uint32_t port_value = 0;
+
+    /** IOPORT0 does not have a PCNTR4 register. So, address of PCNTR3 is used then 4 bytes added */
+    p_dest = ioport_port_address_get((uint32_t volatile *) &p_ioport_regs->PCNTR3, port);
+    p_dest += 1;
+    port_value = *p_dest;
+
+    if (IOPORT_LEVEL_HIGH == pin_level)
+    {
+        /** set value contains the bit to be set high (bit mask) */
+       port_value |= (uint32_t) (set_value);
+        /** reset value contains the mask to clear the corresponding bit in EOSR because both EOSR and EORR
+            bit of a particular pin should not be high at the same time */
+       port_value &= (uint32_t) ((reset_value << 16) | 0x0000FFFF);
+    }
+    else
+    {
+        /** reset_value contains the bit to be cleared low */
+    	port_value |= (uint32_t) reset_value << 16;
+        /** set value contains the mask to clear the corresponding bit in EOSR because both EOSR and EORR bit of a
+            particular pin should not be high at the same time */
+    	port_value &= (uint32_t) ((set_value | 0xFFFF0000));
+    }
+
+    *p_dest = port_value;
 }
 
 /*******************************************************************************************************************//**
@@ -662,7 +650,7 @@ __STATIC_INLINE void HW_IOPORT_PFSSetDirection (R_PFS_Type * p_pfs_reg, R_PMISC_
     HW_IOPORT_PFSWrite(p_pfs_reg, p_pmisc_reg, pin, pfs);
 }
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* HW_IOPORT_PRIVATE_H */

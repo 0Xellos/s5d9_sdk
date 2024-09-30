@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -42,14 +42,14 @@
 #include "bsp_api.h"
 #include "r_fmi_api.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-#define FMI_CODE_VERSION_MAJOR (1U)
-#define FMI_CODE_VERSION_MINOR (4U)
+#define FMI_CODE_VERSION_MAJOR (2U)
+#define FMI_CODE_VERSION_MINOR (0U)
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -64,7 +64,7 @@ extern const fmi_api_t g_fmi_on_fmi;
 /** @endcond */
 
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* R_FMI_H */

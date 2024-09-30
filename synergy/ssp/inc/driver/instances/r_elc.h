@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -44,14 +44,14 @@
 #include "r_elc_cfg.h"
 #include "r_elc_api.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-#define ELC_CODE_VERSION_MAJOR (1U)
-#define ELC_CODE_VERSION_MINOR (3U)
+#define ELC_CODE_VERSION_MAJOR (2U)
+#define ELC_CODE_VERSION_MINOR (0U)
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -65,7 +65,7 @@ SSP_HEADER
 extern const elc_api_t g_elc_on_elc;
 /** @endcond */
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif // R_ELC_H

@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -48,14 +48,14 @@
 /** Register definitions, common services and error codes. */
 #include "bsp_api.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /**********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-#define FMI_API_VERSION_MAJOR (1U)
-#define FMI_API_VERSION_MINOR (3U)
+#define FMI_API_VERSION_MAJOR (2U)
+#define FMI_API_VERSION_MINOR (0U)
 
 /**********************************************************************************************************************
  * Typedef definitions
@@ -178,7 +178,7 @@ typedef struct st_fmi_instance
     fmi_api_t const * p_api;     ///< Pointer to the API structure for this instance
 } fmi_instance_t;
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* DRV_FMI_API_H */

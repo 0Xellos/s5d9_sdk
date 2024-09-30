@@ -37,17 +37,17 @@
 #define BSP_CFG_ROM_REG_MPU_PC1_ENABLE 1
 #define BSP_CFG_ROM_REG_MPU_PC1_START 0xFFFFFFFC
 #define BSP_CFG_ROM_REG_MPU_PC1_END 0xFFFFFFFF
-// #define BSP_CFG_ROM_REG_MPU_REGION0_ENABLE (${config.bsp.s5d9.ssp.mpu_reg0_enable})
-// #define BSP_CFG_ROM_REG_MPU_REGION0_START (${config.bsp.s5d9.ssp.mpu_reg0_start})
-// #define BSP_CFG_ROM_REG_MPU_REGION0_END (${config.bsp.s5d9.ssp.mpu_reg0_end})
-// #define BSP_CFG_ROM_REG_MPU_REGION1_ENABLE (${config.bsp.s5d9.ssp.mpu_reg1_enable})
-// #define BSP_CFG_ROM_REG_MPU_REGION1_START (${config.bsp.s5d9.ssp.mpu_reg1_start})
-// #define BSP_CFG_ROM_REG_MPU_REGION1_END (${config.bsp.s5d9.ssp.mpu_reg1_end})
-// #define BSP_CFG_ROM_REG_MPU_REGION2_ENABLE (${config.bsp.s5d9.ssp.mpu_reg2_enable})
-// #define BSP_CFG_ROM_REG_MPU_REGION2_START (${config.bsp.s5d9.ssp.mpu_reg2_start})
-// #define BSP_CFG_ROM_REG_MPU_REGION2_END (${config.bsp.s5d9.ssp.mpu_reg2_end})
-// #define BSP_CFG_ROM_REG_MPU_REGION3_ENABLE (${config.bsp.s5d9.ssp.mpu_reg3_enable})
-// #define BSP_CFG_ROM_REG_MPU_REGION3_START (${config.bsp.s5d9.ssp.mpu_reg3_start})
-// #define BSP_CFG_ROM_REG_MPU_REGION3_END (${config.bsp.s5d9.ssp.mpu_reg3_end})
+#define BSP_CFG_ROM_REG_MPU_REGION0_ENABLE 1
+#define BSP_CFG_ROM_REG_MPU_REGION0_START 0xFFFFFFFC
+#define BSP_CFG_ROM_REG_MPU_REGION0_END 0xFFFFFFFF
+#define BSP_CFG_ROM_REG_MPU_REGION1_ENABLE 1
+#define BSP_CFG_ROM_REG_MPU_REGION1_START 0xFFFFFFFC
+#define BSP_CFG_ROM_REG_MPU_REGION1_END 0xFFFFFFFF
+#define BSP_CFG_ROM_REG_MPU_REGION2_ENABLE 1
+#define BSP_CFG_ROM_REG_MPU_REGION2_START 0xFFFFFFFC
+#define BSP_CFG_ROM_REG_MPU_REGION2_END 0xFFFFFFFF
+#define BSP_CFG_ROM_REG_MPU_REGION3_ENABLE 1
+#define BSP_CFG_ROM_REG_MPU_REGION3_START 0xFFFFFFFC
+#define BSP_CFG_ROM_REG_MPU_REGION3_END 0xFFFFFFFF
 
 #endif /* BSP_MCU_FAMILY_CFG_H_ */

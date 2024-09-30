@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -20,7 +20,7 @@
 #ifndef R_IOPORT_PRIVATE_API_H
 #define R_IOPORT_PRIVATE_API_H
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /***********************************************************************************************************************
@@ -42,7 +42,7 @@ ssp_err_t R_IOPORT_PortRead (ioport_port_t port, ioport_size_t * p_port_value);
 ssp_err_t R_IOPORT_PortWrite (ioport_port_t port, ioport_size_t value, ioport_size_t mask);
 ssp_err_t R_IOPORT_VersionGet (ssp_version_t * p_data);
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif /* R_IOPORT_PRIVATE_API_H */

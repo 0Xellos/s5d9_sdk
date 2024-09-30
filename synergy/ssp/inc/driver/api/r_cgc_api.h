@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Copyright [2015-2017] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
+ * Copyright [2015-2024] Renesas Electronics Corporation and/or its licensors. All Rights Reserved.
  * 
  * This file is part of Renesas SynergyTM Software Package (SSP)
  *
@@ -57,15 +57,15 @@
 /* Includes board and MCU related header files. */
 #include "bsp_api.h"
 
-/** Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 SSP_HEADER
 
 /**********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
 /* Version Number of API. */
-#define CGC_API_VERSION_MAJOR (1U)
-#define CGC_API_VERSION_MINOR (3U)
+#define CGC_API_VERSION_MAJOR (2U)
+#define CGC_API_VERSION_MINOR (0U)
 
 /**********************************************************************************************************************
  * Typedef definitions
@@ -225,6 +225,8 @@ typedef struct
      * - R_CGC_ClocksCfg()
      *  @note The BSP module calls this function at startup, but it can also be called from the application to change
      *  clocks at runtime.
+     *  @param[in]   p_clock_cfg     Pointer to a structure that contains the dividers or multipliers to be used when
+     *                              configuring the PLL.
      */
     ssp_err_t (* clocksCfg)(cgc_clocks_cfg_t const * const p_clock_cfg);
 
@@ -258,6 +260,7 @@ typedef struct
     /** Get the system clock information.
      * @par Implemented as
      * - R_CGC_SystemClockGet()
+     * @param[in]   p_set_clock_cfg Pointer to clock configuration structure
      * @param[out]  clock_source    Returns the current system clock.
      * @param[out]  p_clock_cfg     Returns the current system clock dividers.
      */
@@ -418,7 +421,7 @@ typedef struct st_cgc_instance
  * @} (end defgroup CGC_API)
  **********************************************************************************************************************/
 
-/** Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
+/* Common macro for SSP header files. There is also a corresponding SSP_HEADER macro at the top of this file. */
 SSP_FOOTER
 
 #endif // ifndef DRV_CGC_API_H
