@@ -13,7 +13,6 @@ target_sources(s5d9_sdk PRIVATE
     synergy/ssp/src/driver/r_ioport/r_ioport.c
     synergy/ssp/src/driver/r_elc/r_elc.c
     synergy/ssp/src/driver/r_cgc/r_cgc.c
-    synergy/ssp/src/driver/r_fmi/libs/libfmi_cm4_s5d9_gcc.a
     synergy/ssp/src/bsp/mcu/s5d9/bsp_cache.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_clocks.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_feature.c
@@ -21,7 +20,6 @@ target_sources(s5d9_sdk PRIVATE
     synergy/ssp/src/bsp/mcu/s5d9/bsp_hw_locks.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_module_stop.c
     synergy/ssp/src/bsp/mcu/s5d9/bsp_rom_registers.c
-    synergy/ssp/src/bsp/mcu/s5d9/libfmi_R7FS5D97E3A01CFC_gcc.a
     synergy/ssp/src/bsp/mcu/all/bsp_common.c
     synergy/ssp/src/bsp/mcu/all/bsp_common_leds.c
     synergy/ssp/src/bsp/mcu/all/bsp_delay.c
@@ -37,6 +35,10 @@ target_sources(s5d9_sdk PRIVATE
     synergy_gen/common_data.c
     synergy_gen/hal_data.c
     synergy_gen/pin_data.c
+)
+target_link_libraries(s5d9_sdk
+    ${CMAKE_SOURCE_DIR}/synergy/ssp/src/driver/r_fmi/libs/libfmi_cm4_s5d9_gcc.a
+    ${CMAKE_SOURCE_DIR}/synergy/ssp/src/bsp/mcu/s5d9/libfmi_R7FS5D97E3A01CFC_gcc.a
 )
 
 # Header locations
