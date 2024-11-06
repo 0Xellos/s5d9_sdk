@@ -7,7 +7,7 @@
 #define BSP_CFG_PLL_DIV (CGC_PLL_DIV_2) /* PLL Div /2 */
 #define BSP_CFG_PLL_MUL (20.0) /* PLL Mul x20.0 */
 #define BSP_CFG_CLOCK_SOURCE (CGC_CLOCK_PLL) /* Clock Src: PLL */
-#define BSP_CFG_ICK_DIV (CGC_SYS_CLOCK_DIV_1) /* ICLK Div /1 */
+#define BSP_CFG_ICK_DIV (CGC_SYS_CLOCK_DIV_2) /* ICLK Div /2 */
 #define BSP_CFG_PCKA_DIV (CGC_SYS_CLOCK_DIV_2) /* PCLKA Div /2 */
 #define BSP_CFG_PCKB_DIV (CGC_SYS_CLOCK_DIV_4) /* PCLKB Div /4 */
 #define BSP_CFG_PCKC_DIV (CGC_SYS_CLOCK_DIV_4) /* PCLKC Div /4 */
